@@ -1,4 +1,4 @@
-test('suma', () => expect(1 + 2).toBe(3));
+test('suma', () => expect(1 + 4).toBe(3));
 
 // sumModule = require('../sum');
 
