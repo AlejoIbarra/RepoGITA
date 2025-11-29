@@ -24,15 +24,15 @@ jobs:
       - name: Ejecutar pruebas unitarias
         run: npm test -- --json --outputFile=report.json
 
-      - name: Subir artefactos del reporte
-        uses: actions/upload-artifact@v3
-        with:
-          name: reporte-tests
-          path: report.json
+    #   - name: Subir artefactos del reporte
+    #     uses: actions/upload-artifact@v3
+    #     with:
+    #       name: reporte-tests
+    #       path: report.json
 
-      - name: Publicar reporte HTML
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: reporte-html
-          path: ./html-report/
+    #   - name: Publicar reporte HTML
+    #     if: always()
+    #     uses: actions/upload-artifact@v3
+    #     with:
+    #       name: reporte-html
+    #       path: ./html-report/
