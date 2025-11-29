@@ -3,50 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hola Mundo Cool</title>
+    <title>Juego de Adivinanza</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-purple-900 via-blue-900 to-black min-h-screen flex items-center justify-center">
     <div class="text-center">
-        <h1 class="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-500 mb-8 animate-pulse">
-            ¡Hola Mundo!
+        <h1 class="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-cyan-500 mb-8">
+            Adivina el Número
         </h1>
         
         <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-lg p-8 shadow-2xl border border-cyan-400">
-            <p class="text-white text-xl mb-6">Contador</p>
-            <div class="text-7xl font-bold text-cyan-400 mb-8" id="contador">0</div>
-            
-            <div class="flex gap-4 justify-center">
-                <button onclick="incrementar()" class="bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-3 px-6 rounded-lg transition transform hover:scale-105">
-                    +
-                </button>
-                <button onclick="decrementar()" class="bg-pink-500 hover:bg-pink-600 text-black font-bold py-3 px-6 rounded-lg transition transform hover:scale-105">
-                    -
-                </button>
-                <button onclick="reiniciar()" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105">
-                    Reiniciar
-                </button>
-            </div>
+            <p class="text-white text-xl mb-6">Ingresa un número entre 1 y 100:</p>
+            <input type="number" id="guess" class="text-black p-2 rounded-lg mb-4" min="1" max="100">
+            <button onclick="adivinar()" class="bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-3 px-6 rounded-lg transition transform hover:scale-105">
+                Adivinar
+            </button>
+            <p class="text-white text-xl mt-4" id="resultado"></p>
         </div>
     </div>
 
     <script>
-        let count = 0;
-        const contadorElement = document.getElementById('contador');
+        const numeroSecreto = Math.floor(Math.random() * 100) + 1;
+        const resultadoElement = document.getElementById('resultado');
 
-        function incrementar() {
-            count++;
-            contadorElement.textContent = count;
-        }
-
-        function decrementar() {
-            count--;
-            contadorElement.textContent = count;
-        }
-
-        function reiniciar() {
-            count = 0;
-            contadorElement.textContent = count;
+        function adivinar() {
+            const guess = parseInt(document.getElementById('guess').value);
+            if (guess < 1 || guess > 100) {
+                resultadoElement.textContent = "Por favor, ingresa un número entre 1 y 100.";
+                return;
+            }
+            if (guess === numeroSecreto) {
+                resultadoElement.textContent = "¡Correcto! Has adivinado el número.";
+            } else if (guess < numeroSecreto) {
+                resultadoElement.textContent = "Demasiado bajo. Intenta de nuevo.";
+            } else {
+                resultadoElement.textContent = "Demasiado alto. Intenta de nuevo.";
+            }
         }
     </script>
 </body>

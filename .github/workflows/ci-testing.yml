@@ -1,0 +1,38 @@
+name: CI Testing
+on: 
+    push:
+        branches: [ main, cambios_ia ]
+    pull_request:
+        branches: [ main, cambios_ia ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar pruebas unitarias
+        run: npm test -- --json --outputFile=report.json
+
+      - name: Subir artefactos del reporte
+        uses: actions/upload-artifact@v3
+        with:
+          name: reporte-tests
+          path: report.json
+
+      - name: Publicar reporte HTML
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: reporte-html
+          path: ./html-report/
